@@ -28,7 +28,11 @@ export default {
 	.movie-item__name {
 		cursor: pointer;
 	}
-	.movie-item__name:hover {
+	.movie-item__name a {
+		text-decoration: none;
+		color: #2c4a50;
+	}
+	.movie-item__name a:hover {
 		color: #4c2a50;
 	}
 </style>

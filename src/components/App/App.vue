@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ListMovie from './ListMovie.vue'
+import ListMovie from '../Movie/ListMovie.vue'
 
 export default {
 	name: 'App'
@@ -20,7 +20,5 @@ export default {
 		text-align: center;
 		color: #2c3e50;
 		padding: 0.8em;
-		display: grid;
-		justify-items: center;
 	}
 </style>
