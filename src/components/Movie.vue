@@ -1,12 +1,11 @@
 <template>
 	<li class='movie-item'>
-		<router-link :to="{ name: 'Movie', params: {name: `${movie.name}`}}">
-			<img :src="movie.img" class='movie-item__img movie-item__name' />
-			<span class='movie-item__name'>
+		<img :src="movie.img" class='movie-item__img movie-item__name' />
+		<span class='movie-item__name'>
+			<router-link :to="{ name: 'movie', params: {name: movie.name}}">
 				{{movie.name}}
-			</span>
-		</router-link>
-		<router-view></router-view>
+			</router-link>
+		</span>
 	</li>
 </template>
 
@@ -14,8 +13,7 @@
 export default {
 	name: 'Movie',
 	props: {
-		movie: Object,
-		index: Number
+		movie: Object
 	}
 }
 </script>

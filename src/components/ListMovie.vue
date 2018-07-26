@@ -1,6 +1,9 @@
 <template>
 	<main class='list-movies'>
-		<ul class='movies' v-if='movies.length'>
+		<header class='header'>
+			{{ textHead }}
+		</header>
+		<ul class='movies'>
 			<Movie
 				v-for='movie in movies'
 				:key='movie.name'
@@ -20,20 +23,31 @@ export default {
 	},
 	data: function () {
 		return {
+			textHead: 'Каталог фильмов по всем жанрам',
 			movies: moviesList
+		}
+	},
+	created: function () {
+
+	},
+	methods: {
+		nextPart: function () {
+
 		}
 	}
 }
-console.log(moviesList)
 </script>
 
 <style scoped>
-.list-movies {
-	padding: 0.8em;
-}
-.movies {
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-}
+	.header {
+		font-size: 1.5em;
+	}
+	.list-movies {
+		padding: 0.8em;
+	}
+	.movies {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
 </style>
