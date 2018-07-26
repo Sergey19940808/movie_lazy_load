@@ -25,6 +25,7 @@ export default {
 		return {
 			textHead: 'Каталог фильмов по всем жанрам',
 			current: 0,
+			total: 10,
 			movies: []
 		}
 	},
@@ -44,7 +45,11 @@ export default {
 			
 		},
 		nextPart: function () {
-			this.currentPart(this.current, this.current+10)
+			if (this.total < 30) this.currentPart(this.current, this.current+10)
+			else if (this.total > 30) {
+				this.movies = []
+				this.currentPart(this.current-20, this.current+10)
+			}
 		},
 		previosPart: function () {
 			this.currentPart(this.current)
@@ -53,6 +58,7 @@ export default {
 			if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
 				this.nextPart(this.current, this.current+10)
 				this.current += 10
+				this.total += 10
 			}
 		}
 	}

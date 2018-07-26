@@ -1,6 +1,6 @@
 <template>
     <main class='movie-content'>
-        <img :src='movie.img' class='movie-content__img' />
+        <img :src='movie.img' class='movie-content__img' width="200" height="200" />
 		<div class='movie-content__description'>
             <header class='movie-content__title'>
 			    {{movie.name}}
@@ -46,6 +46,6 @@ export default {
         padding: 0 0 1.5em 0;
     }
     .movie-content__text {
-        padding: 1.5em 4em 0 4em;
+        padding: 1.5em 1em 0 4em;
     }
 </style>
