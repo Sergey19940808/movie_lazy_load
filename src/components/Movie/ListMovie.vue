@@ -1,5 +1,5 @@
 <template>
-	<main class='list-movies' @scroll='alert(`sadf`)'>
+	<main class='list-movies'>
 		<header class='header'>
 			{{ textHead }}
 		</header>
@@ -25,40 +25,59 @@ export default {
 		return {
 			textHead: 'Каталог фильмов по всем жанрам',
 			current: 0,
-			total: 10,
+			total: 60,
 			movies: []
 		}
 	},
 	created: function () {
-		this.currentPart(this.current, this.current+10)
-		this.current += 10
-		window.addEventListener('scroll', this.handleScroll)
+		JSON.parse(localStorage.getItem('movies')) === null ? 
+			this.currentPart(this.current, this.current+60) :
+			this.movies = JSON.parse(localStorage.getItem('movies'))
+		localStorage.getItem('current') === null ?
+			this.current += 60 :
+			this.current = parseInt(localStorage.getItem('current'))
+		localStorage.getItem('total') === null ?
+			this.total = 60 :
+			this.total = parseInt(localStorage.getItem('total'))
+		window.addEventListener('wheel', this.handleScroll)
+	},
+	beforeDestroy: function() {
+		localStorage.setItem('current', this.current)
+		localStorage.setItem('total', this.total)
+		localStorage.setItem('movies', JSON.stringify(this.movies))
 	},
   	destroyed: function () {
-    	window.removeEventListener('scroll', this.handleScroll)
+    	window.removeEventListener('wheel', this.handleScroll)
   	},
 	methods: {
-		currentPart: function (current, point) { 
+		currentPart: function (current, point) {
 			for (current; current < point; ++current) {
 				this.movies.push(moviesList[current])
 			}
 			
 		},
 		nextPart: function () {
-			if (this.total < 30) this.currentPart(this.current, this.current+10)
-			else if (this.total > 30) {
+			if (this.total < 180) this.currentPart(this.current, this.current+60)
+			else if (this.total > 180) {
 				this.movies = []
-				this.currentPart(this.current-20, this.current+10)
+				this.currentPart(this.current-120, this.current+60)
 			}
 		},
 		previosPart: function () {
-			this.currentPart(this.current)
+			if (this.total > 180) {
+				this.movies = []
+				this.currentPart(this.current-180, this.current)
+			}
 		},
 		handleScroll: function (e) {
 			if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-				this.nextPart(this.current, this.current+10)
-				this.current += 10
-				this.total += 10
+				this.current === 0 ? this.current += 60 : null 
+				this.nextPart()
+				this.current < moviesList.length-60 ? this.current += 60 : null
+				this.total <= 180 ? this.total += 60 : null
+			} else if (this.current !== 120 && document.documentElement.scrollTop === 0) {
+				this.previosPart()
+				this.current !== 0 ? this.current -= 60 : null
 			}
 		}
 	}

@@ -1,5 +1,5 @@
 const moviesList = []
-const total = 101
+const total = 1021
 let count = 1
 
 for (count; count < total; count++) {
